@@ -1,0 +1,19 @@
+master:
+  enabled: true
+  replicas: 1
+
+volume:
+  enabled: true
+  replicas: 1
+
+filer:
+  enabled: true
+  replicas: 1
+  service:
+    type: NodePort
+    nodePort: 30080
+
+s3:
+  enabled: true
+  enableAuth: true
+  existingConfigSecret: seaweedfs-s3-config
