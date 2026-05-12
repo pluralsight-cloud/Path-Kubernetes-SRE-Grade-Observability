@@ -1,0 +1,35 @@
+tempo:
+  extraArgs:
+    config.expand-env: "true"
+
+  extraEnv:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: seaweedfs-s3-config
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: seaweedfs-s3-config
+          key: AWS_SECRET_ACCESS_KEY
+
+  storage:
+    trace:
+      backend: s3
+      s3:
+        endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+        bucket: tempo
+        insecure: true
+        access_key: ${AWS_ACCESS_KEY_ID}
+        secret_key: ${AWS_SECRET_ACCESS_KEY}
+
+  traces:
+    otlp:
+      http:
+        enabled: true
+      grpc:
+        enabled: true
+
+service:
+  type: ClusterIP
