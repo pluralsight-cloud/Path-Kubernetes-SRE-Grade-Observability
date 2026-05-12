@@ -2,6 +2,10 @@ deploymentMode: SingleBinary
 
 singleBinary:
   replicas: 1
+  persistence:
+    enabled: true
+    storageClass: local-path
+    size: 5Gi
   extraArgs:
     - -config.expand-env=true
 
