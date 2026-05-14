@@ -6,3 +6,10 @@ admin:
 service:
   type: NodePort
   nodePort: 30081
+
+persistence:
+  enabled: true
+  storageClassName: local-path
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi
