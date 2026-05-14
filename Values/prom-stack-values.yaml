@@ -4,12 +4,31 @@ grafana:
 prometheus:
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
+    retention: 24h
+    retentionSize: 4GB
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
   service:
     type: NodePort
     nodePort: 30082
 
 alertmanager:
   enabled: true
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
 
 kube-state-metrics:
   enabled: true
