@@ -8,18 +8,9 @@ singleBinary:
     size: 5Gi
   extraArgs:
     - -config.expand-env=true
-
-  extraEnv:
-    - name: AWS_ACCESS_KEY_ID
-      valueFrom:
-        secretKeyRef:
-          name: seaweedfs-s3-config
-          key: AWS_ACCESS_KEY_ID
-    - name: AWS_SECRET_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: seaweedfs-s3-config
-          key: AWS_SECRET_ACCESS_KEY
+  extraEnvFrom:
+    - secretRef:
+        name: seaweedfs-s3-config
 
 read:
   replicas: 0
